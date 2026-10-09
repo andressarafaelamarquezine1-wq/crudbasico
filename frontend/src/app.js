@@ -106,6 +106,7 @@ form.addEventListener('submit', async (event) => {
             }
         } else {
             await createUser(apiUrl, { name, age, email });
+
         }
 
         exitEditMode();
