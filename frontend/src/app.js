@@ -17,6 +17,7 @@ const usersSection = document.getElementById('users');
 let editingId = null;
 let originalUser = null;
 
+// --- Helpers de erro ---
 function showError(message) {
     formError.textContent = message;
     formError.classList.remove('d-none');
@@ -27,6 +28,7 @@ function hideError() {
     formError.textContent = '';
 }
 
+// --- Helpers de edição ---
 function getUserFromCard(button) {
     const card = button.closest('.user-card');
     return findUserById(Number(card.id));
@@ -55,7 +57,7 @@ function exitEditMode() {
 
 cancelBtn.addEventListener('click', exitEditMode);
 
-// Editar / excluir (delegação de eventos)
+// --- Delegação de eventos nos cards ---
 usersSection.addEventListener('click', async (event) => {
     const { target } = event;
 
@@ -77,7 +79,7 @@ usersSection.addEventListener('click', async (event) => {
     }
 });
 
-// Criar / editar
+// --- Submit: cria ou edita ---
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -89,6 +91,7 @@ form.addEventListener('submit', async (event) => {
 
     try {
         if (editingId !== null) {
+            // MODO EDIÇÃO — descobre o que mudou
             const changed = {};
             if (name !== originalUser.name) changed.name = name;
             if (Number(age) !== originalUser.age) changed.age = age;
@@ -99,14 +102,15 @@ form.addEventListener('submit', async (event) => {
                 return;
             }
 
-            if (Object.keys(changed).length === 3) {
+            const allChanged = Object.keys(changed).length === 3;
+            if (allChanged) {
                 await updateUser(apiUrl, editingId, { name, age, email });
             } else {
                 await patchUser(apiUrl, editingId, changed);
             }
         } else {
+            // MODO CRIAÇÃO
             await createUser(apiUrl, { name, age, email });
-
         }
 
         exitEditMode();
@@ -116,7 +120,7 @@ form.addEventListener('submit', async (event) => {
     }
 });
 
-// Primeira renderização
+// --- Primeira renderização ---
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         await renderUsers(apiUrl);
