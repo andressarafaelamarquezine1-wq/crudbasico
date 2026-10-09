@@ -1,0 +1,6 @@
+{
+  "nextId": 2,
+  "users": [
+    { "name": "João", "age": 25, "email": "joao@email.com", "id": 1 }
+  ]
+}
