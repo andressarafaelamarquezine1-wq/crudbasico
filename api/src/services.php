@@ -34,6 +34,7 @@ function createUser(?array $input): array
 
     return ['data' => $user, 'status' => 201];
 }
+
 function editUser(mixed $id, ?array $input, bool $partial = false): array
 {
     $error = validateUserId($id);
@@ -80,6 +81,7 @@ function editUser(mixed $id, ?array $input, bool $partial = false): array
 
     return ['data' => $user, 'status' => 200];
 }
+
 function removeUser(mixed $id): array
 {
     $error = validateUserId($id);

@@ -6,8 +6,7 @@ export function findUserById(id) {
     return usersCache.find((user) => user.id === id);
 }
 
-// Nunca interpole dado do usuário direto no innerHTML: um nome como
-// <img src=x onerror=alert(1)> viraria código executável na página.
+// Todo dado vindo de fora passa por aqui antes de entrar no innerHTML (evita XSS).
 function escapeHtml(value) {
     return String(value)
         .replace(/&/g, '&amp;')

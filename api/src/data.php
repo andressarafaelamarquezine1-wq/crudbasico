@@ -34,10 +34,8 @@ function saveData(array $data): void
 }
 
 /**
- * Serializa um ciclo ler → alterar → gravar.
- *
- * Sem isso, duas requisições simultâneas leem o mesmo estado e a segunda
- * gravação apaga a primeira. O flock faz a segunda requisição esperar.
+ * Serializa um ciclo ler -> alterar -> gravar, para que duas requisições
+ * simultâneas não sobrescrevam uma à outra.
  */
 function withDataLock(callable $operation): mixed
 {
@@ -59,6 +57,7 @@ function withDataLock(callable $operation): mixed
         fclose($lock);
     }
 }
+
 function insertUser(array $user): array
 {
     return withDataLock(function () use ($user): array {

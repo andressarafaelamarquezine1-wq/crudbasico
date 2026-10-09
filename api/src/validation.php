@@ -6,7 +6,7 @@ function validateUserId(mixed $id): ?string
         return 'User id is required';
     }
 
-    // Vem sempre da query string, então é string: só aceitamos dígitos.
+    // Vem da query string (sempre texto): só aceitamos dígitos.
     if (!is_string($id) || !ctype_digit($id)) {
         return 'User id must be a positive integer';
     }

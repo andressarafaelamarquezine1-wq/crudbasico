@@ -15,7 +15,7 @@ function respond(array $result): void
 
 function respondServerError(\Throwable $e): void
 {
-    // O detalhe do erro vai para o log do servidor, nunca para o cliente.
+    // O detalhe fica no log do servidor, nunca na resposta ao cliente.
     error_log((string) $e);
 
     http_response_code(500);
@@ -28,6 +28,7 @@ function readJsonBody(): ?array
 
     return is_array($input) ? $input : null;
 }
+
 function handleGet(): void
 {
     try {
@@ -45,6 +46,7 @@ function handlePost(): void
         respondServerError($e);
     }
 }
+
 function handlePut(): void
 {
     try {
