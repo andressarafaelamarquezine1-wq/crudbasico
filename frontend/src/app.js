@@ -1,4 +1,4 @@
-import { renderUsers } from './scripts/dom/render.js';
+import { renderUsers, findUserById } from './scripts/dom/render.js';
 
 const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api/users';
 //nao realizamos commit em env, pois é um arquivo de texto simples usado para armazenar variáveis de ambiente e informações sigilosas de forma isolada do código-fonte da aplicação!!
